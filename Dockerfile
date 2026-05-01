@@ -1,9 +1,9 @@
-# Use a specific version of Tomcat as base image
 FROM tomcat:9.0
 
-# Expose port 8080 to access the application
-EXPOSE 8080
+# Clean default apps
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy the WAR file from the target directory of your Maven project to the Tomcat webapps directory
-COPY target/maven-cloudaseem-app.war /usr/local/tomcat/webapps/
-# COPY target/*.war /usr/local/tomcat/webapps/
+# Copy WAR as ROOT (important)
+COPY target/maven-cloudaseem-app.war /usr/local/tomcat/webapps/ROOT.war
+
+EXPOSE 8080
